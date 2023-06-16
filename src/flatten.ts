@@ -108,13 +108,11 @@ const mergeInner = <T>(
   field: string,
   inner: string,
   value: T
-): Record<string, any> => ({
-  ...obj,
-  [field]: {
-    ...obj[field],
-    [inner]: value,
-  },
-});
+): Record<string, any> => {
+  obj[field] = obj[field] || {};
+  obj[field][inner] = value;
+  return obj;
+};
 
 const dot = (options: Required<Options>) => {
   const merge = <T>(
@@ -151,7 +149,8 @@ const dot = (options: Required<Options>) => {
       return merge(instructions, getType(value), field, getValue(value));
     }
 
-    const keyValues = Object.entries(value);
+    // TODO: ????? as object????
+    const keyValues = Object.entries(value as object);
     if (keyValues.length === 0) {
       const ignoreValue = (Array.isArray(value) && options.array) || options.skipEmptyObjects;
       return ignoreValue ? instructions : merge(instructions, '$set', field, value);

@@ -38,7 +38,8 @@
     "test": "jest tests/*.spec.ts",
     "test:coverage": "jest --coverage tests/*.spec.ts",
     "test:e2e": "jest tests/*.e2e.ts",
-    "test:e2e:docker": "docker-compose up --no-log-prefix --exit-code-from node --attach node"
+    "test:e2e:docker": "docker-compose up --no-log-prefix --exit-code-from node --attach node",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
